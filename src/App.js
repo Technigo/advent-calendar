@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
+import { StyledApp } from "./AppStyles";
+import { createCalendar, validDate } from "./helpers";
+import Box from "./Box";
 
-function App() {
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: top / auto url("./img/backdrop.png");
+    margin: 0;
+  }
+`;
+
+
+const App = () =>  {
+  const [boxes, setBoxes] = useState([]);
+
+  useEffect(() => {
+    // Could use if statements instead off course
+    const calendar = localStorage.calendar
+      ? JSON.parse(localStorage.calendar)
+      : createCalendar();
+
+    setBoxes(calendar);
+  }, []);
+
+  // Store calendar in localStorage
+  useEffect(() => {
+    // Could use if statements instead off course
+    boxes.length && localStorage.setItem("calendar", JSON.stringify(boxes));
+  }, [boxes]);
+
+  const handleToggleBox = (id, nr) => {
+    // if (!validDate(nr)) return
+
+    const updatedBoxes = boxes.map(box =>
+      box.id === id ? { ...box, open: !box.open } : box
+    );
+    setBoxes(updatedBoxes);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <StyledApp>
+
+      {boxes.map(box => (
+        <Box 
+        key={box.id}
+        boxData={box}
+        handleClick={handleToggleBox}
+        />
+        ))}
+      </StyledApp>
+      
+    </>
+  
   );
 }
 
