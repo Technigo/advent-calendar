@@ -31,7 +31,7 @@ const App = () =>  {
   }, [boxes]);
 
   const handleToggleBox = (id, nr) => {
-    // if (!validDate(nr)) return
+    if (!validDate(nr)) return 
 
     const updatedBoxes = boxes.map(box =>
       box.id === id ? { ...box, open: !box.open } : box
