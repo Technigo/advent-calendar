@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 import { StyledApp } from "./AppStyles";
-// import { createCalendar, validDate } from "./helpers";
+import { createCalendar, validDate } from "./helpers";
 import { createCalendar } from "./helpers";
 import Box from "./Box";
 
@@ -32,7 +32,7 @@ const App = () =>  {
   }, [boxes]);
 
   const handleToggleBox = (id, nr) => {
-    // if (!validDate(nr)) return 
+    if (!validDate(nr)) return 
 
     const updatedBoxes = boxes.map(box =>
       box.id === id ? { ...box, open: !box.open } : box
