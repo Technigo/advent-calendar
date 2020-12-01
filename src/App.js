@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 import { StyledApp } from "./AppStyles";
 import { createCalendar, validDate } from "./helpers";
-import { createCalendar } from "./helpers";
 import Box from "./Box";
 
 const GlobalStyle = createGlobalStyle`
